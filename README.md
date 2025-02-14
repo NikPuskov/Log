@@ -104,6 +104,29 @@ Tag нужен для того, чтобы логи записывались в 
 
 # 4. Настройка аудита, контролирующего изменения конфигурации nginx
 
-`apt install -y auditd`
+Установим утилиту auditd `apt install -y auditd`
 
+Добавим правило, которое будет отслеживать изменения в конфигруации nginx. Для этого в конец файла `/etc/audit/rules.d/audit.rules` добавим следующие строки:
+
+`-w /etc/nginx/nginx.conf -p wa -k nginx_conf`
+
+`-w /etc/nginx/default.d/ -p wa -k nginx_conf`
+
+Данные правила позволяют контролировать запись (w) и измения атрибутов (a) в:
+
+`/etc/nginx/nginx.conf`
+
+Всех файлов каталога `/etc/nginx/default.d/`
+
+Для более удобного поиска к событиям добавляется метка `nginx_conf`
+
+Перезапускаем службу auditd: `service auditd restart`
+
+После данных изменений у нас начнут локально записываться логи аудита.
+
+Чтобы проверить, что логи аудита начали записываться локально, нужно внести изменения в файл `/etc/nginx/nginx.conf` или поменять его атрибут, потом посмотреть информацию об изменениях
+
+`ausearch -k nginx_conf -f /etc/nginx/nginx.conf`
+
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log8.jpg)
 
