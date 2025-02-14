@@ -166,3 +166,6 @@ Auditd по умолчанию не умеет пересылать логи, д
 
 ![Image alt](https://github.com/NikPuskov/Log/blob/main/log9.jpg)
 
+Лог об изменении атрибута файла на web:
+
+`grep web /var/log/audit/audit.log`
