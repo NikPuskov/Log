@@ -100,3 +100,5 @@ Tag нужен для того, чтобы логи записывались в 
 
 Видим, что логи отправляются корректно.
 
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log7.jpg)
+
