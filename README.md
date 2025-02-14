@@ -168,4 +168,4 @@ Auditd по умолчанию не умеет пересылать логи, д
 
 Лог об изменении атрибута файла на web:
 
-`grep web /var/log/audit/audit.log`
+На сервере `log` `grep web /var/log/audit/audit.log`
