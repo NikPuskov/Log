@@ -26,3 +26,5 @@
 
 `ss -tln | grep 80`
 
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log1.jpg)
+
