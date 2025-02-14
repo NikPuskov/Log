@@ -46,3 +46,13 @@ rsyslog должен быть установлен по умолчанию в н
 
 ![Image alt](https://github.com/NikPuskov/Log/blob/main/log2.jpg)
 
+Данные параметры будут отправлять в папку /var/log/rsyslog логи, которые будут приходить от других серверов. 
+
+Например, Access-логи nginx от сервера web, будут идти в файл /var/log/rsyslog/web/nginx_access.log
+
+Сохраняем файл и перезапускаем службу rsyslog: `systemctl restart rsyslog`
+
+Если ошибок не допущено, то у нас будут видны открытые порты TCP, UDP 514: `ss -tuln`
+
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log3.jpg)
+
