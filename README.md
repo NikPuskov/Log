@@ -28,3 +28,21 @@
 
 ![Image alt](https://github.com/NikPuskov/Log/blob/main/log1.jpg)
 
+3. Настройка центрального сервера сбора логов
+
+Откроем еще одно окно терминала и подключаемся по ssh к ВМ log: `vagrant ssh log`
+
+Перейдем в пользователя root: `sudo -i`
+
+rsyslog должен быть установлен по умолчанию в нашей ОС, проверим это: `apt list rsyslog`
+
+Все настройки Rsyslog хранятся в файле /etc/rsyslog.conf `nano /etc/rsyslog.conf`
+
+Для того, чтобы наш сервер мог принимать логи, нам необходимо внести следующие изменения в файл: 
+
+Открываем порт 514 (TCP и UDP)
+
+В конец файла /etc/rsyslog.conf добавляем правила приёма сообщений от хостов
+
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log2.jpg)
+
