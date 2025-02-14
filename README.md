@@ -104,7 +104,7 @@ Tag нужен для того, чтобы логи записывались в 
 
 # 4. Настройка аудита, контролирующего изменения конфигурации nginx
 
-Установим утилиту auditd `apt install -y auditd`
+Установим утилиту auditd `apt install -y auditd` на `web`
 
 Добавим правило, которое будет отслеживать изменения в конфигруации nginx. Для этого в конец файла `/etc/audit/rules.d/audit.rules` добавим следующие строки:
 
@@ -129,4 +129,38 @@ Tag нужен для того, чтобы логи записывались в 
 `ausearch -k nginx_conf -f /etc/nginx/nginx.conf`
 
 ![Image alt](https://github.com/NikPuskov/Log/blob/main/log8.jpg)
+
+Настроим пересылку логов на удаленный сервер. 
+
+Auditd по умолчанию не умеет пересылать логи, для пересылки на web-сервере потребуется установить пакет audispd-plugins
+
+`apt -y install audispd-plugins`
+
+Найдем и поменяем следующие строки в файле `/etc/audit/auditd.conf`:
+
+`log_format = RAW`
+
+`name_format = HOSTNAME`
+
+В `name_format` указываем `HOSTNAME`, чтобы в логах на удаленном сервере отображалось имя хоста
+
+В файле `/etc/audit/plugins.d/au-remote.conf` поменяем параметр `active` на `yes`
+
+В файле /etc/audit/audisp-remote.conf требуется указать адрес сервера и порт, на который будут отправляться логи
+
+`remote_server = 192.168.1.57` (ip address в моём случае)
+
+Перезапускаем службу auditd: `service auditd restart`
+
+На этом настройка web-сервера завершена. Далее настроим Log-сервер.
+
+Установим утилиту auditd `apt install -y auditd` на `log`
+
+Откроем порт TCP 60, для этого раскомментируем строку в файле /etc/audit/auditd.conf
+
+`tcp_listen_port = 60`
+
+Перезапускаем службу auditd: `service auditd restart`
+
+На этом настройка пересылки логов аудита закончена. Можем попробовать поменять атрибут у файла `/etc/nginx/nginx.conf` и проверить на log-сервере, что пришла информация об изменении атрибута
 
