@@ -56,3 +56,17 @@ rsyslog должен быть установлен по умолчанию в н
 
 ![Image alt](https://github.com/NikPuskov/Log/blob/main/log3.jpg)
 
+Далее настроим отправку логов с web-сервера
+
+Заходим на web сервер: `vagrant ssh web`
+
+Переходим в root пользователя: `sudo -i` 
+
+Проверим версию nginx: `nginx -v`
+
+Версия nginx должна быть 1.7 или выше. В нашем примере используется версия nginx 1.24.
+
+Находим в файле /etc/nginx/nginx.conf раздел с логами и приводим их к следующему виду:
+
+![Image alt](https://github.com/NikPuskov/Log/blob/main/log4.jpg)
+
